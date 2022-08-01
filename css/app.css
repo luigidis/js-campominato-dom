@@ -83,6 +83,10 @@ main {
     font-weight: bold;
 }
 
-.clicked {
+.clicked_bomb {
     background-color: rgb(255, 77, 0);
+}
+
+.clicked_safe {
+    background-color: greenyellow;
 }

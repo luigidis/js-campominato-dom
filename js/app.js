@@ -5,20 +5,24 @@ const container = document.querySelector('.container');
 
 // vado a prendere il bottone dove si genererà la griglia
 const playButton = document.querySelector('.play');
-
-// mi stabilisco il mio array vuoto per le bombe
-// let bombPosition = []
+// Inizializzo il mio punteggio
+let punteggio = 0
+// Quando premo il tasto Gioca!
+// voglio che la mia griglia appaia solo quando l'utente clicca il tasto gioca
+playButton.addEventListener('click', function () {
+    startGame(chooseDifficulty());
+});
 
 // a questo punto mi creo una funzione che mi crea un div di classe celle
-function createGrid(celle) {
-    resetGame()
-    numeroCelle = celle ** 2
+function startGame(celle) {
+    resetGame();
+    numeroCelle = celle ** 2;
     // Qui cambierò la classe in base alla mia griglia
     if (numeroCelle === 100) {
-        container.classList.add('grid_template_hard')
+        container.classList.add('grid_template_hard');
 
     } else if (numeroCelle === 81) {
-        container.classList.add('grid_template_medium')
+        container.classList.add('grid_template_medium');
     } else {
         container.classList.add('grid_template_easy')
     }
@@ -26,41 +30,56 @@ function createGrid(celle) {
     bombPosition = bombGenerator(celle);
     console.log(bombPosition);
 
-    for (let i = 0; i < numeroCelle; i++) {
+    //invoco la mi funzione per la creazione della griglia in base alle celle
+    createGrid(numeroCelle)
+}
+
+// La mia funzione crea Griglia
+function createGrid(celle) {
+    for (let i = 0; i < celle; i++) {
         // Evoco la mia funzione per creare le celle
         const cella = createCell();
         // metto il numero corrispondente alla casella nel mio div creato
-        cella.innerHTML = i + 1
+        cella.innerHTML = i + 1;
 
         // a questo punto appendo ogni cella sul mio container
         container.append(cella);
     }
 }
 
-// La mia funzione crea Griglia
-
 // creo la mia funzione che va a prelevare il div cella
 function createCell() {
     const divElement = document.createElement('div');
     divElement.classList.add('celle');
-    // aggiongo l'event listener
+    // aggiungo l'event listener
     divElement.addEventListener('click', clickCheck);
-
     return divElement;
 }
+
 // creo la mia funziona che va a evidenziare le caselle e stampare nella console il numero relativo alla casella
 function clickCheck(event) {
     cell = this;
-    // metto un colore alla mia cella se viene cliccata
-    cell.classList.toggle('clicked');
+    // mi prendo il numero della cella dell'innerHtml
+    const numeroCella = parseInt(cell.innerHTML);
+    console.log(bombPosition.includes(numeroCella));
+    
+    // cambio la classe da aggiungere alla cella in base a Se è una bomba o meno
+    let classToAdd = 'clicked_safe';
+    if (bombPosition.includes(numeroCella)) {
+        classToAdd = 'clicked_bomb';
+    }
+    // aggiungo la classe alla cella
+    cell.classList.add(classToAdd);    
+    // aggiungo il punto
+    if (classToAdd !== 'clicked_bomb') {
+        punteggio = punteggio + 1
+    } else {
+        alert ('GAME OVER...Hai totalizzato un punteggio pari a:\n' + punteggio)
+        document.location.reload()
+    }
     // metto un messaggio in console della cella clickata
-    console.log(this.innerHTML);
+    console.log(numeroCella);
 }
-
-// voglio che la mia griglia appaia solo quando l'utente clicca il tasto gioca
-playButton.addEventListener('click', function () {
-    createGrid(chooseDifficulty());
-});
 
 function chooseDifficulty() {
     // prendo l'elemento nel dom della selection
@@ -84,25 +103,27 @@ function chooseDifficulty() {
 // mi creo una funzione per resettare il gioco
 function resetGame () {
     // cancello tutto all'interno dell'html del container
-    container.innerHTML = ''
+    container.innerHTML = '';
     // resettto eventuali classi aggiunte
-    container.classList.remove('grid_template_hard', 'grid_template_medium', 'grid_template_easy')
+    container.classList.remove('grid_template_hard', 'grid_template_medium', 'grid_template_easy');
+    // resetto il punteggio
+    punteggio = 0;
 }
 
 
 // funzione che genera sempre 16 bombe in posizioni random in base alla difficoltà
 function bombGenerator (cells) {
-    const bombs = []
+    const bombs = [];
     while (bombs.length < 16) {
         //generare un numero randomico tra 1 e numerodicelle
-        const n = getRandomIntInclusive(1,(cells**2))
+        const n = getRandomIntInclusive(1,(cells**2));
         //se non è uguale a un numero già presente nell'array
         if (!bombs.includes(n)) {
             // lo pusho nell'array bombs
-            bombs.push(n)
+            bombs.push(n);
         }
     }
-    return bombs
+    return bombs;
 }
     
     
