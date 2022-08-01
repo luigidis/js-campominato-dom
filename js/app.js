@@ -6,12 +6,12 @@ const container = document.querySelector('.container');
 // vado a prendere il bottone dove si genererà la griglia
 const playButton = document.querySelector('.play');
 
+// mi stabilisco il mio array vuoto per le bombe
+// let bombPosition = []
+
 // a questo punto mi creo una funzione che mi crea un div di classe celle
 function createGrid(celle) {
-    container.classList.remove('grid_template_hard', 'grid_template_medium', 'grid_template_easy')
-    // container.classList.remove('grid_template_medium')
-    // container.classList.remove('grid_template_easy')
-    container.innerHTML = ''
+    resetGame()
     numeroCelle = celle ** 2
     // Qui cambierò la classe in base alla mia griglia
     if (numeroCelle === 100) {
@@ -22,6 +22,10 @@ function createGrid(celle) {
     } else {
         container.classList.add('grid_template_easy')
     }
+    // vado a stabilire in che posizione sono le bombe invocando la mia funzione
+    bombPosition = bombGenerator(celle);
+    console.log(bombPosition);
+
     for (let i = 0; i < numeroCelle; i++) {
         // Evoco la mia funzione per creare le celle
         const cella = createCell();
@@ -32,6 +36,8 @@ function createGrid(celle) {
         container.append(cella);
     }
 }
+
+// La mia funzione crea Griglia
 
 // creo la mia funzione che va a prelevare il div cella
 function createCell() {
@@ -74,6 +80,42 @@ function chooseDifficulty() {
     }
     return num
 }
+
+// mi creo una funzione per resettare il gioco
+function resetGame () {
+    // cancello tutto all'interno dell'html del container
+    container.innerHTML = ''
+    // resettto eventuali classi aggiunte
+    container.classList.remove('grid_template_hard', 'grid_template_medium', 'grid_template_easy')
+}
+
+
+// funzione che genera sempre 16 bombe in posizioni random in base alla difficoltà
+function bombGenerator (cells) {
+    const bombs = []
+    while (bombs.length < 16) {
+        //generare un numero randomico tra 1 e numerodicelle
+        const n = getRandomIntInclusive(1,(cells**2))
+        //se non è uguale a un numero già presente nell'array
+        if (!bombs.includes(n)) {
+            // lo pusho nell'array bombs
+            bombs.push(n)
+        }
+    }
+    return bombs
+}
+    
+    
+    
+
+// funzione per generare un numero casuale da un min a un max
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min); 
+}
+  
+
 
 
 
