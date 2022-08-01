@@ -74,11 +74,16 @@ function clickCheck(event) {
     if (classToAdd !== 'clicked_bomb') {
         punteggio = punteggio + 1
     } else {
-        alert ('GAME OVER...Hai totalizzato un punteggio pari a:\n' + punteggio)
+        
         const cellElement = document.querySelectorAll('.celle');
         console.log(cellElement);
+        console.log(cellElement.length)
         // tolgo tutti gli event listener
-        cellElement.removeEventListener();
+        for (let i = 0; i < cellElement.length; i++) {
+            // console.log(cellElement[i])
+            cellElement[i].removeEventListener('click', clickCheck)
+        }
+        alert ('GAME OVER...Hai totalizzato un punteggio pari a:\n' + punteggio)
     } 
     // metto un messaggio in console della cella clickata
     console.log(numeroCella);
