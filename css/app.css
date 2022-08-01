@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: aquamarine;
+}
+
+main {
+    min-height: 100vh;
+}
+
+
+.top_bar {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+.col-mid {
+    margin-right: auto;
+    padding-left: 25px;
+}
+
+.col-select {
+    padding-right: 20px;
+
+}
+
+.col-select label {
+    padding-right: 5px;
+}
+
+.col-select #difficulty,
+.col-select label {
+    font-size: 15px;
+}
+
+
+.play {
+    padding: 10px 20px;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    border: solid 1px rgb(0, 0, 0);
+    background-color: rgb(231, 231, 231);
+    border-radius: 10px;
+    color: black;
+}
+
+.container {
+    flex-basis: 100%;
+    margin: 0 auto;
+    max-width: 800px;
+    display: grid;
+    aspect-ratio: 1/1;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-top: 50px;
+}
+
+.grid_template_hard {
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.grid_template_medium {
+    grid-template-columns: repeat(9, 1fr);
+}
+
+.grid_template_easy {
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.celle {
+    aspect-ratio: 1/1;
+    border: 1px solid rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.clicked {
+    background-color: rgb(255, 77, 0);
+}
