@@ -75,11 +75,19 @@ function clickCheck(event) {
         punteggio = punteggio + 1
     } else {
         alert ('GAME OVER...Hai totalizzato un punteggio pari a:\n' + punteggio)
-        document.location.reload()
-    }
+        const cellElement = document.querySelectorAll('.celle');
+        console.log(cellElement);
+        // tolgo tutti gli event listener
+        cellElement.removeEventListener();
+    } 
     // metto un messaggio in console della cella clickata
     console.log(numeroCella);
 }
+
+function endGame () {
+    
+}
+    
 
 function chooseDifficulty() {
     // prendo l'elemento nel dom della selection

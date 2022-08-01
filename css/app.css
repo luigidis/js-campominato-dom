@@ -81,6 +81,7 @@ main {
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    user-select: none;
 }
 
 .clicked_bomb {
